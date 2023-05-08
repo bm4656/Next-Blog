@@ -1,5 +1,5 @@
-import Footer from './components/Footer';
-import Header from './components/Header';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 import './globals.css';
 import { Open_Sans } from 'next/font/google';
 
