@@ -1,11 +1,13 @@
 import Image from 'next/image';
 import Profile from '../components/Profile';
+import FeaturedPosts from '@/components/FeaturedPosts';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <section className='flex min-h-screen flex-col items-center justify-between p-24'>
+    <section>
       <Profile />
-      홈입니다.
+      {/* @ts-expect-error Async Server Component */}
+      <FeaturedPosts />
     </section>
   );
 }
