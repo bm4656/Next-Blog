@@ -7,3 +7,6 @@ body {
   height: 100vh;
   overflow-y: auto;
 }
+body {
+  @apply flex flex-col w-full max-w-screen-2xl mx-auto;
+}
