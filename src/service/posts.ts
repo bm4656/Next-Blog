@@ -7,11 +7,18 @@ export type Post = {
   date: Date;
   category: string;
   path: string;
+  featured: boolean;
 };
+
+export async function getFeaturedPosts(): Promise<Post[]> {
+  const filePath = path.join(process.cwd(), 'public/data', 'posts.json');
+  return readFile(filePath, 'utf-8')
+    .then<Post[]>(JSON.parse)
+    .then((posts) => posts.filter((post) => post.featured));
+}
 
 export async function getAllPosts(): Promise<Post[]> {
   const filePath = path.join(process.cwd(), 'public/data', 'posts.json');
-  console.log(filePath);
   return (
     readFile(filePath, 'utf-8')
       .then<Post[]>(JSON.parse)
