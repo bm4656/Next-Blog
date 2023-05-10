@@ -1,7 +1,6 @@
 import Image from 'next/image';
-import profileImage from '/public/image/profileImage.png';
+import profileImage from 'public/images/profileImage.png';
 import Link from 'next/link';
-import ContactButton from './ContactButton';
 
 export default function Profile() {
   return (
@@ -12,13 +11,14 @@ export default function Profile() {
         width={250}
         height={300}
         className='mx-auto rounded-full'
+        priority={true}
       />
       <h2 className='text-2xl font-bold mt-2'>{"Hi, Im' Bomin"}</h2>
       <p className='text-xl font-semibold'>Frontend Enginner</p>
-      <p className='mb-2'>나에 대한 간단한 소개</p>
+      <p className='mb-2 py-1'>Hi, there? I am a growing developer! 🌱</p>
       <Link
         href='/contact'
-        className='bg-teal-400 text-white rounded-md p-1 text-sm font-semibold'
+        className='bg-teal-400 text-white rounded-md p-1 text-md font-semibold'
       >
         Contact me!
       </Link>
