@@ -1,3 +1,12 @@
-export default function PostsPage() {
-  return <p>posts 페이지 입니다.</p>;
+import FilterablePosts from '@/components/FilterablePosts';
+import { getAllPosts } from '@/service/posts';
+
+export default async function PostsPage() {
+  const posts = await getAllPosts();
+  const categories = [...new Set(posts.map((post) => post.category))];
+  return (
+    <section>
+      <FilterablePosts categories={categories} posts={posts} />
+    </section>
+  );
 }
