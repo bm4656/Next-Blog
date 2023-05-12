@@ -2,30 +2,25 @@
 import { Post } from '@/service/posts';
 import { useState } from 'react';
 import PostGrid from './PostGrid';
+import Categories from './Categories';
 
 type Props = { categories: string[]; posts: Post[] };
-export default function FilterablePosts({ categories, posts }: Props) {
-  const [selected, setSelected] = useState('');
+
+const ALL_POSTS = 'All Posts';
+export default function FilterablePosts({ posts, categories }: Props) {
+  const [selected, setSelected] = useState(ALL_POSTS);
   const filtered =
-    selected !== ''
-      ? posts.filter((post) => post.category === selected)
-      : posts;
-  console.log(filtered);
+    selected == ALL_POSTS
+      ? posts
+      : posts.filter((post) => post.category === selected);
   return (
-    <section className='flex'>
-      <PostGrid posts={filtered}></PostGrid>
-      <ul className='flex flex-col mx-4 items-center'>
-        <h3 className='text-lg font-bold'>Category</h3>
-        {categories.map((category, index) => (
-          <li
-            key={index}
-            onClick={() => setSelected(category)}
-            className='cursor-pointer'
-          >
-            {category}
-          </li>
-        ))}
-      </ul>
+    <section className='flex m-4'>
+      <PostGrid posts={filtered} />
+      <Categories
+        categories={[ALL_POSTS, ...categories]}
+        selected={selected}
+        onClick={setSelected}
+      />
     </section>
   );
 }
