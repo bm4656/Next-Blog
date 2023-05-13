@@ -1,3 +1,4 @@
+import { metadata } from './../app/layout';
 import { readFile } from 'fs/promises';
 import path from 'path';
 
@@ -9,6 +10,8 @@ export type Post = {
   path: string;
   featured: boolean;
 };
+
+export type PostData = Post & { content: string };
 
 export async function getFeaturedPosts(): Promise<Post[]> {
   const filePath = path.join(process.cwd(), 'data', 'posts.json');
@@ -33,13 +36,13 @@ export async function getAllPosts(): Promise<Post[]> {
       .then((posts) => posts.sort((a, b) => (a.date > b.date ? -1 : 1)))
   );
 }
+export async function getPostData(fileName: string): Promise<PostData> {
+  const filePath = path.join(process.cwd(), 'data', 'posts', `${fileName}.md`);
+  const metadata = await getAllPosts() //
+    .then((posts) => posts.find((post) => post.path === fileName));
+  if (!metadata)
+    throw new Error(`${fileName}에 해당하는 포스트를 찾을 수가 없습니다.`);
 
-export async function getPost(id: string): Promise<Post | undefined> {
-  const posts = await getAllPosts();
-  return posts.find((post) => post.path === id);
-}
-
-export async function getMarkdown(id: string) {
-  const filePath = path.join(process.cwd(), 'data/posts', `${id}.md`);
-  return readFile(filePath, 'utf-8');
+  const content = await readFile(filePath, 'utf-8');
+  return { ...metadata, content };
 }
